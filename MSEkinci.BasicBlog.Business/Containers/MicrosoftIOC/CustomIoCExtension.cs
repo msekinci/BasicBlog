@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MSEkinci.BasicBlog.Business.Concrete;
 using MSEkinci.BasicBlog.Business.Interfaces;
-using MSESoftware.BasicBlog.DataAccess.Concrete.EntityFrameworkCore.Repositories;
-using MSESoftware.BasicBlog.DataAccess.Interfaces;
+using MSEkinci.BasicBlog.DataAccess.Concrete.EntityFrameworkCore.Repositories;
+using MSEkinci.BasicBlog.DataAccess.Interfaces;
 
 namespace MSEkinci.BasicBlog.Business.Containers.MicrosoftIOC
 {

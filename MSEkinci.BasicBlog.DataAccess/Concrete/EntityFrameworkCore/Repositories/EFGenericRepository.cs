@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MSESoftware.BasicBlog.DataAccess.Concrete.EntityFrameworkCore.Context;
-using MSESoftware.BasicBlog.DataAccess.Interfaces;
-using MSESoftware.BasicBlog.Entities.Interfaces;
+using MSEkinci.BasicBlog.DataAccess.Concrete.EntityFrameworkCore.Context;
+using MSEkinci.BasicBlog.DataAccess.Interfaces;
+using MSEkinci.BasicBlog.Entities.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MSESoftware.BasicBlog.DataAccess.Concrete.EntityFrameworkCore.Repositories
+namespace MSEkinci.BasicBlog.DataAccess.Concrete.EntityFrameworkCore.Repositories
 {
     public class EFGenericRepository<TEntity> : IGenericDAL<TEntity> where TEntity : class, IEntity, new()
     {

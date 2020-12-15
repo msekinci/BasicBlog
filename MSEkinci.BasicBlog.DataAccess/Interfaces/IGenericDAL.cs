@@ -1,10 +1,10 @@
-﻿using MSESoftware.BasicBlog.Entities.Interfaces;
+﻿using MSEkinci.BasicBlog.Entities.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace MSESoftware.BasicBlog.DataAccess.Interfaces
+namespace MSEkinci.BasicBlog.DataAccess.Interfaces
 {
     public interface IGenericDAL<TEntity> where TEntity : class, IEntity, new()
     {

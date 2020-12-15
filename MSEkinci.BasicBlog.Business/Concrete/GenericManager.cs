@@ -1,6 +1,6 @@
 ﻿using MSEkinci.BasicBlog.Business.Interfaces;
-using MSESoftware.BasicBlog.DataAccess.Interfaces;
-using MSESoftware.BasicBlog.Entities.Interfaces;
+using MSEkinci.BasicBlog.DataAccess.Interfaces;
+using MSEkinci.BasicBlog.Entities.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;

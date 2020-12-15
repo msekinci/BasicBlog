@@ -1,8 +1,8 @@
-﻿using MSESoftware.BasicBlog.Entities.Interfaces;
+﻿using MSEkinci.BasicBlog.Entities.Interfaces;
 using System;
 using System.Collections.Generic;
 
-namespace MSESoftware.BasicBlog.Entities.Concrete
+namespace MSEkinci.BasicBlog.Entities.Concrete
 {
     public class Blog : IEntity
     {
@@ -11,13 +11,12 @@ namespace MSESoftware.BasicBlog.Entities.Concrete
         public string ShortDescription { get; set; }
         public string Description { get; set; }
         public string ImagePath { get; set; }
-        public DateTime PostedTime { get; set; }
+        public DateTime PostedTime { get; set; } = DateTime.Now;
 
-        /*
         public AppUser AppUser { get; set; }
         public int AppUserId { get; set; }
-        */
 
+        public List<Comment> Comments { get; set; }
         public List<CategoryBlog> CategoryBlogs { get; set; }
     }
 }

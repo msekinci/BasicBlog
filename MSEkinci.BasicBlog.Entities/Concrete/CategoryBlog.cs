@@ -1,6 +1,6 @@
-﻿using MSESoftware.BasicBlog.Entities.Interfaces;
+﻿using MSEkinci.BasicBlog.Entities.Interfaces;
 
-namespace MSESoftware.BasicBlog.Entities.Concrete
+namespace MSEkinci.BasicBlog.Entities.Concrete
 {
     public class CategoryBlog : IEntity
     {

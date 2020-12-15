@@ -1,7 +1,7 @@
-﻿using MSESoftware.BasicBlog.Entities.Interfaces;
+﻿using MSEkinci.BasicBlog.Entities.Interfaces;
 using System.Collections.Generic;
 
-namespace MSESoftware.BasicBlog.Entities.Concrete
+namespace MSEkinci.BasicBlog.Entities.Concrete
 {
     public class Category : IEntity
     {
