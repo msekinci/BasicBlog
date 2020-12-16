@@ -20,6 +20,12 @@ namespace MSEkinci.BasicBlog.DataAccess.Concrete.EntityFrameworkCore.Repositorie
             await context.SaveChangesAsync();
         }
 
+        public async Task<TEntity> FindAsync(int id)
+        {
+            using var context = new BlogContext();
+            return await context.FindAsync<TEntity>(id);
+        }
+
         public async Task<List<TEntity>> GetAllAsync()
         {
             using var context = new BlogContext();
