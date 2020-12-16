@@ -1,6 +1,8 @@
 ﻿using MSEkinci.BasicBlog.Business.Interfaces;
 using MSEkinci.BasicBlog.DataAccess.Interfaces;
 using MSEkinci.BasicBlog.Entities.Concrete;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MSEkinci.BasicBlog.Business.Concrete
 {
@@ -10,6 +12,11 @@ namespace MSEkinci.BasicBlog.Business.Concrete
         public CategoryManager(IGenericDAL<Category> genericDAL) : base(genericDAL)
         {
             _genericDAL = genericDAL;
+        }
+
+        public async Task<List<Category>> GetAllSortedById()
+        {
+            return await _genericDAL.GetAllAsync(x => x.Id);
         }
     }
 }

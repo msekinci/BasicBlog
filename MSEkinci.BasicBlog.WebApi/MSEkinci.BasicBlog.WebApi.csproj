@@ -5,7 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MSEkinci.BasicBlog.Business\MSEkinci.BasicBlog.Business.csproj" />
+    <ProjectReference Include="..\MSEkinci.BasicBlog.DTO\MSEkinci.BasicBlog.DTO.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\img\" />
   </ItemGroup>
 
 
