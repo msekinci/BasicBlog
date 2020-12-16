@@ -8,4 +8,8 @@
     <ProjectReference Include="..\MSEkinci.BasicBlog.DataAccess\MSEkinci.BasicBlog.DataAccess.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ValidationRules\" />
+  </ItemGroup>
+
 </Project>
