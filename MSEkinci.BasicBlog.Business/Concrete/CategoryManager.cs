@@ -14,7 +14,7 @@ namespace MSEkinci.BasicBlog.Business.Concrete
             _genericDAL = genericDAL;
         }
 
-        public async Task<List<Category>> GetAllSortedById()
+        public async Task<List<Category>> GetAllSortedByIdAsync()
         {
             return await _genericDAL.GetAllAsync(x => x.Id);
         }

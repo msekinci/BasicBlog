@@ -4,16 +4,14 @@ using MSEkinci.BasicBlog.Business.Interfaces;
 using MSEkinci.BasicBlog.DTO.DTOs.BlogDTOs;
 using MSEkinci.BasicBlog.Entities.Concrete;
 using MSEkinci.BasicBlog.WebApi.Models;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
 
 namespace MSEkinci.BasicBlog.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BlogsController : ControllerBase
+    public class BlogsController : BaseController
     {
         private readonly IBlogService _blogService;
         private readonly IMapper _mapper;
@@ -39,21 +37,22 @@ namespace MSEkinci.BasicBlog.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Add([FromForm]BlogAddModel blogAddModel)
         {
-            if (blogAddModel.Image != null)
+            var uploadModel = await UploadFileAsync(blogAddModel.Image, "image/jpeg");
+            if (uploadModel.UploadState == Enums.UploadState.Success)
             {
-                if (blogAddModel.Image.ContentType != "image/jpeg")
-                {
-                    return BadRequest("Invalid file type");
-                }
-                var fileName = Guid.NewGuid() + Path.GetExtension(blogAddModel.Image.FileName);
-                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", fileName);
-                var stream = new FileStream(path, FileMode.Create);
-                await blogAddModel.Image.CopyToAsync(stream);
-                blogAddModel.ImagePath = fileName;
+                blogAddModel.ImagePath = uploadModel.NewName;
+                await _blogService.AddAsync(_mapper.Map<Blog>(blogAddModel));
+                return Created("", blogAddModel);
             }
-            
-            await _blogService.AddAsync(_mapper.Map<Blog>(blogAddModel));
-            return Created("", blogAddModel);
+            else if (uploadModel.UploadState == Enums.UploadState.NotExist)
+            {
+                await _blogService.AddAsync(_mapper.Map<Blog>(blogAddModel));
+                return Created("", blogAddModel);
+            }
+            else
+            {
+                return BadRequest(uploadModel.ErrorMessage);
+            }
         }
 
         [HttpPut("{id}")]
@@ -64,21 +63,30 @@ namespace MSEkinci.BasicBlog.WebApi.Controllers
                 return BadRequest("Invalid ID");
             }
 
-            if (blogUpdateModel.Image != null)
+            var uploadModel = await UploadFileAsync(blogUpdateModel.Image, "image/jpeg");
+            if (uploadModel.UploadState == Enums.UploadState.Success)
             {
-                if (blogUpdateModel.Image.ContentType != "image/jpeg")
-                {
-                    return BadRequest("Invalid file type");
-                }
-                var fileName = Guid.NewGuid() + Path.GetExtension(blogUpdateModel.Image.FileName);
-                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", fileName);
-                var stream = new FileStream(path, FileMode.Create);
-                await blogUpdateModel.Image.CopyToAsync(stream);
-                blogUpdateModel.ImagePath = fileName;
+                var updatedBlog = await _blogService.FindByIdAsyc(blogUpdateModel.Id);
+                updatedBlog.ShortDescription = blogUpdateModel.ShortDescription;
+                updatedBlog.Description = blogUpdateModel.Description;
+                updatedBlog.Title = blogUpdateModel.Title;
+                updatedBlog.ImagePath = uploadModel.NewName;
+                await _blogService.UpdateAsync(updatedBlog);
+                return NoContent();
             }
-
-            await _blogService.UpdateAsync(_mapper.Map<Blog>(blogUpdateModel));
-            return NoContent();
+            else if (uploadModel.UploadState == Enums.UploadState.NotExist)
+            {
+                var updatedBlog = await _blogService.FindByIdAsyc(blogUpdateModel.Id);
+                updatedBlog.ShortDescription = blogUpdateModel.ShortDescription;
+                updatedBlog.Description = blogUpdateModel.Description;
+                updatedBlog.Title = blogUpdateModel.Title;
+                await _blogService.UpdateAsync(updatedBlog);
+                return NoContent();
+            }
+            else
+            {
+                return BadRequest(uploadModel.ErrorMessage);
+            }
         }
 
         [HttpDelete("{id}")]
