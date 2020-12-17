@@ -1,3 +1,5 @@
+using BasicBlogFront.ApiServices.Concrete;
+using BasicBlogFront.ApiServices.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -18,6 +20,8 @@ namespace BasicBlogFront
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpClient<IBlogApiService, BlogApiManager>();
+            services.AddHttpClient<ICategoryApiService, CategoryApiManager>();
             services.AddRazorPages();
         }
 
