@@ -11,10 +11,15 @@ namespace MSEkinci.BasicBlog.Business.Concrete
     {
         private readonly IGenericDAL<Blog> _genericDAL;
         private readonly IGenericDAL<CategoryBlog> _categoryBlogDAL;
-        public BlogManager(IGenericDAL<Blog> genericDAL, IGenericDAL<CategoryBlog> categoryBlogDAL) : base(genericDAL)
+        private readonly IBlogDAL _blogDAL;
+
+        public BlogManager(IGenericDAL<Blog> genericDAL,
+            IGenericDAL<CategoryBlog> categoryBlogDAL,
+            IBlogDAL blogDAL) : base(genericDAL)
         {
             _genericDAL = genericDAL;
             _categoryBlogDAL = categoryBlogDAL;
+            _blogDAL = blogDAL;
         }
 
         public async Task AddToCategoryAsync(CategoryBlogDTO categoryBlogDTO)
@@ -32,6 +37,11 @@ namespace MSEkinci.BasicBlog.Business.Concrete
                     CategoryId = categoryBlogDTO.CategoryId
                 });
             }
+        }
+
+        public async Task<List<Blog>> GetAllByCategoryId(int categoryId)
+        {
+            return await _blogDAL.GetAllByCategoryId(categoryId);
         }
 
         public async Task<List<Blog>> GetAllSortedByPostedTimeAsync()

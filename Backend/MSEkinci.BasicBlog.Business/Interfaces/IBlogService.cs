@@ -10,5 +10,6 @@ namespace MSEkinci.BasicBlog.Business.Interfaces
         Task<List<Blog>> GetAllSortedByPostedTimeAsync();
         Task AddToCategoryAsync(CategoryBlogDTO categoryBlogDTO);
         Task RemoveFromCategoryAsync(CategoryBlogDTO categoryBlogDTO);
+        Task<List<Blog>> GetAllByCategoryId(int categoryId);
     }
 }

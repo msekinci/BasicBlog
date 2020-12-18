@@ -41,7 +41,7 @@ namespace MSEkinci.BasicBlog.WebApi.Controllers
         [HttpPost]
         [Authorize]
         [ValidModel]
-        public async Task<IActionResult> Add([FromForm]BlogAddModel blogAddModel)
+        public async Task<IActionResult> Add([FromForm] BlogAddModel blogAddModel)
         {
             var uploadModel = await UploadFileAsync(blogAddModel.Image, "image/jpeg");
             if (uploadModel.UploadState == Enums.UploadState.Success)
@@ -65,7 +65,7 @@ namespace MSEkinci.BasicBlog.WebApi.Controllers
         [Authorize]
         [ValidModel]
         [ServiceFilter(typeof(ValidId<Blog>))]
-        public async Task<IActionResult> Update(int id, [FromForm]BlogUpdateModel blogUpdateModel)
+        public async Task<IActionResult> Update(int id, [FromForm] BlogUpdateModel blogUpdateModel)
         {
             if (id != blogUpdateModel.Id)
             {
@@ -121,6 +121,13 @@ namespace MSEkinci.BasicBlog.WebApi.Controllers
         {
             await _blogService.RemoveFromCategoryAsync(categoryBlogDTO);
             return NoContent();
+        }
+
+        [HttpGet("[action]/{id}")]
+        [ServiceFilter(typeof(ValidId<Category>))]
+        public async Task<IActionResult> GetAllByCategoryId(int id)
+        {
+            return Ok(await _blogService.GetAllByCategoryId(id));
         }
     }
 }
