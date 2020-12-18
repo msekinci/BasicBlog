@@ -5,6 +5,7 @@ using MSEkinci.BasicBlog.Business.Interfaces;
 using MSEkinci.BasicBlog.DTO.DTOs.BlogDTOs;
 using MSEkinci.BasicBlog.DTO.DTOs.CategoryBlogDTOs;
 using MSEkinci.BasicBlog.Entities.Concrete;
+using MSEkinci.BasicBlog.WebApi.CustomFilters;
 using MSEkinci.BasicBlog.WebApi.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -31,6 +32,7 @@ namespace MSEkinci.BasicBlog.WebApi.Controllers
         }
 
         [HttpGet("{id}")]
+        [ServiceFilter(typeof(ValidId<Blog>))]
         public async Task<IActionResult> GetById(int id)
         {
             return Ok(_mapper.Map<BlogListDTO>(await _blogService.FindByIdAsyc(id)));
@@ -38,6 +40,7 @@ namespace MSEkinci.BasicBlog.WebApi.Controllers
 
         [HttpPost]
         [Authorize]
+        [ValidModel]
         public async Task<IActionResult> Add([FromForm]BlogAddModel blogAddModel)
         {
             var uploadModel = await UploadFileAsync(blogAddModel.Image, "image/jpeg");
@@ -60,6 +63,8 @@ namespace MSEkinci.BasicBlog.WebApi.Controllers
 
         [HttpPut("{id}")]
         [Authorize]
+        [ValidModel]
+        [ServiceFilter(typeof(ValidId<Blog>))]
         public async Task<IActionResult> Update(int id, [FromForm]BlogUpdateModel blogUpdateModel)
         {
             if (id != blogUpdateModel.Id)
@@ -95,6 +100,7 @@ namespace MSEkinci.BasicBlog.WebApi.Controllers
 
         [HttpDelete("{id}")]
         [Authorize]
+        [ServiceFilter(typeof(ValidId<Blog>))]
         public async Task<IActionResult> Delete(int id)
         {
             await _blogService.RemoveAsync(new Blog { Id = id });

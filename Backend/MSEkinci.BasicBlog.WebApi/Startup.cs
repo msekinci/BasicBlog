@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using MSEkinci.BasicBlog.Business.Containers.MicrosoftIOC;
 using MSEkinci.BasicBlog.Business.StringInfos;
+using MSEkinci.BasicBlog.WebApi.CustomFilters;
 using System;
 using System.Text;
 
@@ -27,6 +28,7 @@ namespace MSEkinci.BasicBlog.WebApi
         {
             services.AddAutoMapper(typeof(Startup));
             services.AddDependencies();
+            services.AddScoped(typeof(ValidId<>));
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt => 
             {
                 opt.RequireHttpsMetadata = false;
