@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MSEkinci.BasicBlog.Business.Interfaces;
 using MSEkinci.BasicBlog.Business.Tools.JWTTool;
 using MSEkinci.BasicBlog.DTO.DTOs.AppUserDTOs;
+using MSEkinci.BasicBlog.WebApi.CustomFilters;
 using System.Threading.Tasks;
 
 namespace MSEkinci.BasicBlog.WebApi.Controllers
@@ -23,6 +24,7 @@ namespace MSEkinci.BasicBlog.WebApi.Controllers
         }
 
         [HttpPost]
+        [ValidModel]
         public async Task<IActionResult> SignIn(AppUserLoginDTO appUserLoginDTO)
         {
             var user = await _appUserService.CheckUserAsync(appUserLoginDTO);

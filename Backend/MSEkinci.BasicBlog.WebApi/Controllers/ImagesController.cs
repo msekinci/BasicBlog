@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MSEkinci.BasicBlog.Business.Interfaces;
+using MSEkinci.BasicBlog.Entities.Concrete;
+using MSEkinci.BasicBlog.WebApi.CustomFilters;
 using System.Threading.Tasks;
 
 namespace MSEkinci.BasicBlog.WebApi.Controllers
@@ -15,6 +17,7 @@ namespace MSEkinci.BasicBlog.WebApi.Controllers
         }
 
         [HttpGet("[action]/{id}")]
+        [ServiceFilter(typeof(ValidId<Blog>))]
         public async Task<IActionResult> GetBlogImageById(int id)
         {
             var blog = await _blogService.FindByIdAsyc(id);

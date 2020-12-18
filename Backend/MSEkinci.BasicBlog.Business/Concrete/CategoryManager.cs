@@ -9,14 +9,21 @@ namespace MSEkinci.BasicBlog.Business.Concrete
     public class CategoryManager : GenericManager<Category>, ICategoryService
     {
         private readonly IGenericDAL<Category> _genericDAL;
-        public CategoryManager(IGenericDAL<Category> genericDAL) : base(genericDAL)
+        private readonly ICategoryDAL _categoryDAL;
+        public CategoryManager(IGenericDAL<Category> genericDAL, ICategoryDAL categoryDAL) : base(genericDAL)
         {
             _genericDAL = genericDAL;
+            _categoryDAL = categoryDAL;
         }
 
         public async Task<List<Category>> GetAllSortedByIdAsync()
         {
             return await _genericDAL.GetAllAsync(x => x.Id);
+        }
+
+        public async Task<List<Category>> GetAllWithCategoryBlogsAsync()
+        {
+            return await _categoryDAL.GetAllWithCategoryBlogsAsync();
         }
     }
 }

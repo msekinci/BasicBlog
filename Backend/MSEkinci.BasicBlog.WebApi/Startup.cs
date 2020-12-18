@@ -1,4 +1,5 @@
 using AutoMapper;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using MSEkinci.BasicBlog.Business.Containers.MicrosoftIOC;
 using MSEkinci.BasicBlog.Business.StringInfos;
+using MSEkinci.BasicBlog.WebApi.CustomFilters;
 using System;
 using System.Text;
 
@@ -27,6 +29,7 @@ namespace MSEkinci.BasicBlog.WebApi
         {
             services.AddAutoMapper(typeof(Startup));
             services.AddDependencies();
+            services.AddScoped(typeof(ValidId<>));
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt => 
             {
                 opt.RequireHttpsMetadata = false;
@@ -41,7 +44,9 @@ namespace MSEkinci.BasicBlog.WebApi
                     ClockSkew = TimeSpan.Zero
                 };
             });
-            services.AddControllers().AddNewtonsoftJson(opt => { opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore; });
+            services.AddControllers()
+                .AddNewtonsoftJson(opt => { opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore; })
+                .AddFluentValidation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
