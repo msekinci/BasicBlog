@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MSEkinci.BasicBlog.Entities\MSEkinci.BasicBlog.Entities.csproj" />
+  </ItemGroup>
+
 </Project>

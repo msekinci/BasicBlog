@@ -61,5 +61,23 @@ namespace MSEkinci.BasicBlog.WebApi.Controllers
             await _categoryService.RemoveAsync(new Category { Id = id });
             return NoContent();
         }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetWithBlogsCount()
+        {
+            var categories = await _categoryService.GetAllWithCategoryBlogsAsync();
+            List<CategoryWithBlogCount> listCategory = new List<CategoryWithBlogCount>();
+
+            foreach (var category in categories)
+            {
+                CategoryWithBlogCount categoryWithBlogCount = new CategoryWithBlogCount
+                {
+                    Category = category,
+                    BlogsCount = category.CategoryBlogs.Count
+                };
+                listCategory.Add(categoryWithBlogCount);
+            }
+            return Ok(listCategory);
+        }
     }
 }

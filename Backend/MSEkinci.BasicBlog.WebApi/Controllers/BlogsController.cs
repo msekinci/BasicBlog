@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MSEkinci.BasicBlog.Business.Interfaces;
 using MSEkinci.BasicBlog.DTO.DTOs.BlogDTOs;
+using MSEkinci.BasicBlog.DTO.DTOs.CategoryBlogDTOs;
 using MSEkinci.BasicBlog.Entities.Concrete;
 using MSEkinci.BasicBlog.WebApi.Models;
 using System.Collections.Generic;
@@ -97,6 +98,22 @@ namespace MSEkinci.BasicBlog.WebApi.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             await _blogService.RemoveAsync(new Blog { Id = id });
+            return NoContent();
+        }
+
+        [HttpPost("[action]")]
+        [Authorize]
+        public async Task<IActionResult> AddToCategory(CategoryBlogDTO categoryBlogDTO)
+        {
+            await _blogService.AddToCategoryAsync(categoryBlogDTO);
+            return Created("", categoryBlogDTO);
+        }
+
+        [HttpPost("[action]")]
+        [Authorize]
+        public async Task<IActionResult> RemoveFromCategory(CategoryBlogDTO categoryBlogDTO)
+        {
+            await _blogService.RemoveFromCategoryAsync(categoryBlogDTO);
             return NoContent();
         }
     }
