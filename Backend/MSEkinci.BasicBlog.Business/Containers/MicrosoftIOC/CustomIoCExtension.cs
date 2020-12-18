@@ -1,9 +1,14 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using FluentValidation;
+using Microsoft.Extensions.DependencyInjection;
 using MSEkinci.BasicBlog.Business.Concrete;
 using MSEkinci.BasicBlog.Business.Interfaces;
 using MSEkinci.BasicBlog.Business.Tools.JWTTool;
+using MSEkinci.BasicBlog.Business.ValidationRules.FluentValidation;
 using MSEkinci.BasicBlog.DataAccess.Concrete.EntityFrameworkCore.Repositories;
 using MSEkinci.BasicBlog.DataAccess.Interfaces;
+using MSEkinci.BasicBlog.DTO.DTOs.AppUserDTOs;
+using MSEkinci.BasicBlog.DTO.DTOs.CategoryBlogDTOs;
+using MSEkinci.BasicBlog.DTO.DTOs.CategoryDTOs;
 
 namespace MSEkinci.BasicBlog.Business.Containers.MicrosoftIOC
 {
@@ -27,6 +32,11 @@ namespace MSEkinci.BasicBlog.Business.Containers.MicrosoftIOC
             services.AddScoped<ICommentService, CommentManager>();
 
             services.AddScoped<IJwtService, JwtManager>();
+
+            services.AddTransient<IValidator<AppUserLoginDTO>, AppUserLoginValidator>();
+            services.AddTransient<IValidator<CategoryAddDTO>, CategoryAddValidator>();
+            services.AddTransient<IValidator<CategoryBlogDTO>, CategoryBlogValidator>();
+            services.AddTransient<IValidator<CategoryUpdateDTO>, CategoryUpdateValidator>();
         }
     }
 }
