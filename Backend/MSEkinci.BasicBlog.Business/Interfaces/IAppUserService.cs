@@ -6,6 +6,7 @@ namespace MSEkinci.BasicBlog.Business.Interfaces
 {
     public interface IAppUserService : IGenericService<AppUser>
     {
-        Task<AppUser> CheckUser(AppUserLoginDTO appUserLoginDTO);
+        Task<AppUser> CheckUserAsync(AppUserLoginDTO appUserLoginDTO);
+        Task<AppUser> FindByNameAsync(string username);
     }
 }

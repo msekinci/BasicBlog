@@ -14,11 +14,16 @@ namespace MSEkinci.BasicBlog.Business.Concrete
             _genericDAL = genericDAL;
         }
 
-        public async Task<AppUser> CheckUser(AppUserLoginDTO appUserLoginDTO)
+        public async Task<AppUser> CheckUserAsync(AppUserLoginDTO appUserLoginDTO)
         {
             return await _genericDAL.GetAsync(x =>
             x.UserName == appUserLoginDTO.UserName &&
             x.Password == appUserLoginDTO.Password);
+        }
+
+        public async Task<AppUser> FindByNameAsync(string username)
+        {
+            return await _genericDAL.GetAsync(x => x.UserName == username);
         }
     }
 }
