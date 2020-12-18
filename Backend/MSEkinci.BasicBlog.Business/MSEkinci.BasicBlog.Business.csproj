@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MSEkinci.BasicBlog.DataAccess\MSEkinci.BasicBlog.DataAccess.csproj" />
+    <ProjectReference Include="..\MSEkinci.BasicBlog.DTO\MSEkinci.BasicBlog.DTO.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MSEkinci.BasicBlog.Business.Concrete;
 using MSEkinci.BasicBlog.Business.Interfaces;
+using MSEkinci.BasicBlog.Business.Tools.JWTTool;
 using MSEkinci.BasicBlog.DataAccess.Concrete.EntityFrameworkCore.Repositories;
 using MSEkinci.BasicBlog.DataAccess.Interfaces;
 
@@ -24,6 +25,8 @@ namespace MSEkinci.BasicBlog.Business.Containers.MicrosoftIOC
 
             services.AddScoped<ICommentDAL, EFCommentRepository>();
             services.AddScoped<ICommentService, CommentManager>();
+
+            services.AddScoped<IJwtService, JwtManager>();
         }
     }
 }

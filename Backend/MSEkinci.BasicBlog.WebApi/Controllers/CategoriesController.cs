@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MSEkinci.BasicBlog.Business.Interfaces;
 using MSEkinci.BasicBlog.DTO.DTOs.CategoryDTOs;
@@ -34,6 +35,7 @@ namespace MSEkinci.BasicBlog.WebApi.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Add(CategoryAddDTO categoryAddDTO)
         {
             await _categoryService.AddAsync(_mapper.Map<Category>(categoryAddDTO));
@@ -41,6 +43,7 @@ namespace MSEkinci.BasicBlog.WebApi.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> Update(int id, CategoryUpdateDTO categoryUpdateDTO)
         {
             if (id != categoryUpdateDTO.Id)
@@ -52,6 +55,7 @@ namespace MSEkinci.BasicBlog.WebApi.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             await _categoryService.RemoveAsync(new Category { Id = id });
