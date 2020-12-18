@@ -31,6 +31,9 @@ namespace MSEkinci.BasicBlog.WebApi.Mapping.AutoMapperProfile
 
             CreateMap<AppUserLoginDTO, AppUser>();
             CreateMap<AppUser, AppUserLoginDTO>();
+
+            CreateMap<AppUserDto, AppUser>();
+            CreateMap<AppUser, AppUserDto>();
         }
     }
 }
