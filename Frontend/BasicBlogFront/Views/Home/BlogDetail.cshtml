@@ -8,7 +8,7 @@
     <a href="#">"Mehmet Serkan Ekinci"</a>
 </p>
 
-<hr>
+<hr class="alert-danger">
 
 <!-- Date/Time -->
 <p>Posted On @Model.PostedTime.ToLongDateString()</p>
@@ -16,9 +16,14 @@
 <hr>
 
 <!-- Preview Image -->
-<img class="img-fluid rounded" src="http://placehold.it/900x300" alt="">
+<getblogimage id="@Model.Id" blog-image-type="BlogDetail"></getblogimage>
 
 <hr>
+
+<!-- Post Short Content -->
+<h4>@Model.ShortDescription</h4>
+
+<hr class="alert-heading">
 
 <!-- Post Content -->
 @Model.Description

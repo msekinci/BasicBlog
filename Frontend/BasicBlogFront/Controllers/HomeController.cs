@@ -11,9 +11,17 @@ namespace BasicBlogFront.Controllers
         {
             _blogApiService = blogApiService;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? category)
         {
-            return View(await _blogApiService.GetAllAsync());
+            if (category.HasValue)
+            {
+                ViewBag.ActiveCategory = category;
+                return View(await _blogApiService.GetAllByCategoryIdAsync(category.Value));
+            }
+            else
+            {
+                return View(await _blogApiService.GetAllAsync());
+            }
         }
 
         public async Task<IActionResult> BlogDetail(int id)

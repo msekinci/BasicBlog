@@ -78,7 +78,8 @@ namespace MSEkinci.BasicBlog.WebApi.Controllers
             {
                 CategoryWithBlogCount categoryWithBlogCount = new CategoryWithBlogCount
                 {
-                    Category = category,
+                    CategoryId = category.Id,
+                    CategoryName = category.Name,
                     BlogsCount = category.CategoryBlogs.Count
                 };
                 listCategory.Add(categoryWithBlogCount);

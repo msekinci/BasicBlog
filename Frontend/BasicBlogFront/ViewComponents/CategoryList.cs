@@ -1,9 +1,5 @@
 ﻿using BasicBlogFront.ApiServices.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BasicBlogFront.ViewComponents
 {
@@ -17,7 +13,7 @@ namespace BasicBlogFront.ViewComponents
         public IViewComponentResult Invoke()
         {
             //Cannot be async method in ViewComponant
-            return View(_categoryApiService.GetAllAsync().Result);
+            return View(_categoryApiService.GetAllWithBlogCountAsync().Result);
         }
     }
 }

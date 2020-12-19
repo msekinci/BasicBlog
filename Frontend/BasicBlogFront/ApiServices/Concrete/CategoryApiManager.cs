@@ -25,5 +25,14 @@ namespace BasicBlogFront.ApiServices.Concrete
             }
             return null;
         }
+        public async Task<List<CategoryWithBlogCount>> GetAllWithBlogCountAsync()
+        {
+            var responseMessage = await _httpClient.GetAsync("GetWithBlogsCount");
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return JsonConvert.DeserializeObject<List<CategoryWithBlogCount>>(await responseMessage.Content.ReadAsStringAsync());
+            }
+            return null;
+        }
     }
 }

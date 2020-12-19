@@ -1,4 +1,4 @@
-﻿namespace MSEkinci.BasicBlog.DTO.DTOs.CategoryDTOs
+﻿namespace BasicBlogFront.Models
 {
     public class CategoryWithBlogCount
     {

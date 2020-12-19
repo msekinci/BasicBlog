@@ -26,6 +26,16 @@ namespace BasicBlogFront.ApiServices.Concrete
             return null;
         }
 
+        public async Task<List<BlogListModel>> GetAllByCategoryIdAsync(int categoryId)
+        {
+            var responseMessage = await _httpClient.GetAsync($"GetAllByCategoryId/{categoryId}");
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return JsonConvert.DeserializeObject<List<BlogListModel>>(await responseMessage.Content.ReadAsStringAsync());
+            }
+            return null;
+        }
+
         public async Task<BlogListModel> GetByIdAsync(int id)
         {
             var responseMessage = await _httpClient.GetAsync($"{id}");
