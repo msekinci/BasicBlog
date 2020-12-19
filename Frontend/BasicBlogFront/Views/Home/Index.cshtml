@@ -4,9 +4,7 @@
 
 @if (ViewBag.ActiveCategory != null)
 {
-    <div class="border border-dark p-3 mb-2">
-        @ViewBag.ActiveCategory blogs are listed filtered.  <a class="float-right" asp-action="Index">Remove Filter</a>
-    </div>
+    <categoryfilter category-id="@ViewBag.ActiveCategory"></categoryfilter>
 }
 @foreach (var blog in Model)
 {

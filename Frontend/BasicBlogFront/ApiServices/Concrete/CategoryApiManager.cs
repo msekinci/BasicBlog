@@ -34,5 +34,15 @@ namespace BasicBlogFront.ApiServices.Concrete
             }
             return null;
         }
+
+        public async Task<CategoryListModel> GetByIdAsync(int id)
+        {
+            var responseMessage = await _httpClient.GetAsync($"{id}");
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return JsonConvert.DeserializeObject<CategoryListModel>(await responseMessage.Content.ReadAsStringAsync());
+            }
+            return null;
+        }
     }
 }
