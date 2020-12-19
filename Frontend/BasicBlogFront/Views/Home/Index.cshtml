@@ -1,17 +1,21 @@
 ﻿@model List<BlogListModel>
 
-    <h1 class="my-4">Latest Blogs</h1>
+<h1 class="my-4">Latest Blogs</h1>
 
-    @foreach (var blog in Model)
-    {
-<div class="card mb-4">
-    <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
-    <div class="card-body">
-        <h2 class="card-title">@blog.Title</h2>
-        <p class="card-text">@blog.ShortDescription</p>
-        <a asp-action ="BlogDetail" asp-route-id="@blog.Id" class="btn btn-primary">Read More &rarr;</a>
-    </div>
-    <div class="card-footer text-muted">
-        Posted on @blog.PostedTime.ToLongDateString()
-    </div>
-</div>}
+@if (ViewBag.ActiveCategory != null)
+{
+    <categoryfilter category-id="@ViewBag.ActiveCategory"></categoryfilter>
+}
+@foreach (var blog in Model)
+{
+    <div class="card mb-4">
+        <getblogimage id="@blog.Id" blog-image-type="BlogHome"></getblogimage>
+        <div class="card-body">
+            <h2 class="card-title">@blog.Title</h2>
+            <p class="card-text">@blog.ShortDescription</p>
+            <a asp-action="BlogDetail" asp-route-id="@blog.Id" class="btn btn-primary">Read More &rarr;</a>
+        </div>
+        <div class="card-footer text-muted">
+            Posted on @blog.PostedTime.ToLongDateString()
+        </div>
+    </div>}
