@@ -15,4 +15,9 @@
     <Folder Include="Areas\Admin\Models\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\trumbowyg\.github\FUNDING.yml" />
+    <None Include="wwwroot\trumbowyg\.github\ISSUE_TEMPLATE.md" />
+  </ItemGroup>
+
 </Project>
