@@ -17,11 +17,12 @@ namespace BasicBlogFront.Controllers
             return View();
         }
 
+        [HttpPost]
         public async Task<IActionResult> SignIn(AppUserLoginModel appUserLoginModel)
         {
             if (await _authApiService.SignIn(appUserLoginModel))
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home", new { @area="Admin" });
             }
             return View();
         }

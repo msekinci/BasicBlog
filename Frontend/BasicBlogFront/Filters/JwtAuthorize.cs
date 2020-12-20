@@ -16,7 +16,7 @@ namespace BasicBlogFront.Filters
             var token = context.HttpContext.Session.GetString("token");
             if (string.IsNullOrWhiteSpace(token))
             {
-                context.Result = new RedirectToActionResult("SignIn", "Account", null);
+                context.Result = new RedirectToActionResult("SignIn", "Account", new { @area = "" });
             }
             else
             {
@@ -32,7 +32,7 @@ namespace BasicBlogFront.Filters
                 }
                 else
                 {
-                    context.Result = new RedirectToActionResult("SignIn", "Account", null);
+                    context.Result = new RedirectToActionResult("SignIn", "Account", new { @area=""});
                 }
             }
         }
