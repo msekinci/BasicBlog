@@ -20,31 +20,25 @@ namespace BasicBlogFront
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpContextAccessor(); //Bir class ile http context'e eriþebilmek için
+            services.AddSession(); //Tokený tutabilmek için Session'ý aktif ediyoruz
             services.AddHttpClient<IBlogApiService, BlogApiManager>();
             services.AddHttpClient<ICategoryApiService, CategoryApiManager>();
             services.AddHttpClient<IImageApiService, ImageApiManager>();
-
+            services.AddHttpClient<IAuthApiService, AuthApiManager>();
             services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-            }
+            if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
+            else app.UseExceptionHandler("/Error");
 
+            app.UseSession(); //Tokený tutabilmek için Session'ý aktif ediyoruz
             app.UseStaticFiles();
-
             app.UseRouting();
-
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();
