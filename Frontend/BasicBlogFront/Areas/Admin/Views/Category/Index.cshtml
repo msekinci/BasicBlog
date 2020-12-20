@@ -1,21 +1,15 @@
-﻿@model List<BlogListModel>
+﻿@model List<CategoryListModel>
 
 <div class="pt-3">
     <a class="btn btn-success" asp-action="Create">Add New One</a>
 </div>
 <hr />
 
-<table id="blogDataTable" class="table table-striped table-bordered" width="100%">
+<table id="categoryDataTable" class="table table-striped table-bordered" width="100%">
     <thead>
         <tr>
             <th>
-                Title
-            </th>
-            <th>
-                Short Description
-            </th>
-            <th>
-                Posted Time
+                Category Name
             </th>
             <th>&nbsp;</th>
         </tr>
@@ -25,13 +19,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ShortDescription)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PostedTime)
+                    @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
                     <a class='btn btn-outline-primary' asp-action="Update" asp-route-id="@item.Id">Update</a>
@@ -45,7 +33,7 @@
 @section js{
     <script>
         $(document).ready(function () {
-            $("#blogDataTable").dataTable({
+            $("#categoryDataTable").dataTable({
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Turkish.json"
                 },
@@ -56,7 +44,7 @@
                 "pageLength": 10,
                 "responsive": true,
                 "columnDefs": [{
-                    "targets": 3,
+                    "targets": 1,
                     "orderable": false
                 }]
             });

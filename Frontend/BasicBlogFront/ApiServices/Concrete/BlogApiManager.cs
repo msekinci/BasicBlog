@@ -75,5 +75,36 @@ namespace BasicBlogFront.ApiServices.Concrete
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _httpContextAccessor.HttpContext.Session.GetString("token"));
             await _httpClient.PostAsync("", formData);
         }
+
+        public async Task UpdateAsync(BlogUpdateModel blogUpdateModel)
+        {
+            MultipartFormDataContent formData = new MultipartFormDataContent();
+            if (blogUpdateModel.Image != null)
+            {
+                var stream = new MemoryStream();
+                await blogUpdateModel.Image.CopyToAsync(stream);
+                var bytes = stream.ToArray();
+                ByteArrayContent byteArrayContent = new ByteArrayContent(bytes);
+                byteArrayContent.Headers.ContentType = new MediaTypeHeaderValue(blogUpdateModel.Image.ContentType);
+                formData.Add(byteArrayContent, nameof(BlogUpdateModel.Image), blogUpdateModel.Image.FileName);
+            }
+
+            var user = _httpContextAccessor.HttpContext.Session.GetObject<AppUserViewModel>("activeUser");
+            blogUpdateModel.AppUserId = user.Id;
+            formData.Add(new StringContent(blogUpdateModel.Id.ToString()), nameof(BlogUpdateModel.Id));
+            formData.Add(new StringContent(blogUpdateModel.AppUserId.ToString()), nameof(BlogUpdateModel.AppUserId));
+            formData.Add(new StringContent(blogUpdateModel.Title.ToString()), nameof(BlogUpdateModel.Title));
+            formData.Add(new StringContent(blogUpdateModel.ShortDescription.ToString()), nameof(BlogUpdateModel.ShortDescription));
+            formData.Add(new StringContent(blogUpdateModel.Description.ToString()), nameof(BlogUpdateModel.Description));
+
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _httpContextAccessor.HttpContext.Session.GetString("token"));
+            await _httpClient.PutAsync($"{blogUpdateModel.Id}", formData);
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _httpContextAccessor.HttpContext.Session.GetString("token"));
+            await _httpClient.DeleteAsync($"{id}");
+        }
     }
 }

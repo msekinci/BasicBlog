@@ -1,0 +1,30 @@
+﻿@model BasicBlogFront.Models.CategoryUpdateModel
+
+@{
+    ViewData["Title"] = "Update";
+}
+
+<h4 class="p-3">Update The Category</h4>
+
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Update">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="Id" type="hidden" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

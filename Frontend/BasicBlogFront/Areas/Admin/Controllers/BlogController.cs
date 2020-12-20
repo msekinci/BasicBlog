@@ -35,5 +35,34 @@ namespace BasicBlogFront.Areas.Admin.Controllers
             }
             return View(new BlogAddModel());
         }
+
+        public async Task<IActionResult> Update(int id)
+        {
+            var blog = await _blogApiService.GetByIdAsync(id);
+            return View(new BlogUpdateModel
+            {
+                Id = blog.Id,
+                Title = blog.Title,
+                ShortDescription = blog.ShortDescription,
+                Description = blog.Description
+            });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(BlogUpdateModel blogUpdateModel)
+        {
+            if (ModelState.IsValid)
+            {
+                await _blogApiService.UpdateAsync(blogUpdateModel);
+                return RedirectToAction("Index");
+            }
+            return View(blogUpdateModel);
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _blogApiService.DeleteAsync(id);
+            return RedirectToAction("Index");
+        }
     }
 }
