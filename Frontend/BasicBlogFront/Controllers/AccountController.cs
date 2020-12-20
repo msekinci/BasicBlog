@@ -24,7 +24,7 @@ namespace BasicBlogFront.Controllers
             {
                 return RedirectToAction("Index", "Home", new { @area="Admin" });
             }
-            return View();
+            return View(appUserLoginModel);
         }
     }
 }

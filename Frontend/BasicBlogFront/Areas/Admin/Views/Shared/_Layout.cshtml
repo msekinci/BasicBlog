@@ -15,6 +15,9 @@
 
     <!-- Custom styles for this template -->
     <link href="/css/simple-sidebar.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/lib/twitter-bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" />
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/fixedheader/3.1.6/css/fixedHeader.bootstrap4.min.css" />
 
 </head>
 
@@ -23,9 +26,10 @@
 
         <!-- Sidebar -->
         <div class="bg-dark border-right" id="sidebar-wrapper">
-            <div class="sidebar-heading">Basic Blog </div>
+            <div class="sidebar-heading" style="color:white">Basic Blog </div>
             <div class="list-group list-group-flush">
                 <a href="#" class="list-group-item list-group-item-action bg-light">Dashboard</a>
+                <a asp-action="Index" asp-controller="Blog" class="list-group-item list-group-item-action bg-light">Blogs</a>
             </div>
         </div>
         <!-- /#sidebar-wrapper -->
@@ -79,6 +83,30 @@
         $("#menu-toggle").click(function (e) {
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
+        });
+    </script>
+
+    <script type="text/javascript" src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="//cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+            $("#dataTable").dataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Turkish.json"
+                },
+                "searching": true,
+                "ordering": true,
+                "paging": true,
+                "pagingType": "full_numbers",
+                "pageLength": 10,
+                "responsive": true,
+                "columnDefs": [{
+                    "targets": 3,
+                    "orderable": false
+                }]
+            });
         });
     </script>
 
