@@ -9,5 +9,8 @@ namespace BasicBlogFront.ApiServices.Interfaces
         Task<List<CategoryListModel>> GetAllAsync();
         Task<CategoryListModel> GetByIdAsync(int id);
         Task<List<CategoryWithBlogCount>> GetAllWithBlogCountAsync();
+        Task AddAsync(CategoryAddModel categoryAddModel);
+        Task UpdateAsync(CategoryUpdateModel categoryUpdateModel);
+        Task DeleteAsync(int id);
     }
 }
