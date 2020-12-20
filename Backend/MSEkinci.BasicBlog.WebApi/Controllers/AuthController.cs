@@ -23,7 +23,7 @@ namespace MSEkinci.BasicBlog.WebApi.Controllers
             _mapper = mapper;
         }
 
-        [HttpPost]
+        [HttpPost("[action]")]
         [ValidModel]
         public async Task<IActionResult> SignIn(AppUserLoginDTO appUserLoginDTO)
         {
