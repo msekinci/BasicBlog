@@ -5,6 +5,7 @@ using MSEkinci.BasicBlog.Business.Interfaces;
 using MSEkinci.BasicBlog.DTO.DTOs.BlogDTOs;
 using MSEkinci.BasicBlog.DTO.DTOs.CategoryBlogDTOs;
 using MSEkinci.BasicBlog.DTO.DTOs.CategoryDTOs;
+using MSEkinci.BasicBlog.DTO.DTOs.CommentDTOs;
 using MSEkinci.BasicBlog.Entities.Concrete;
 using MSEkinci.BasicBlog.WebApi.CustomFilters;
 using MSEkinci.BasicBlog.WebApi.Models;
@@ -18,11 +19,13 @@ namespace MSEkinci.BasicBlog.WebApi.Controllers
     public class BlogsController : BaseController
     {
         private readonly IBlogService _blogService;
+        private readonly ICommentService _commentService;
         private readonly IMapper _mapper;
 
-        public BlogsController(IBlogService blogService, IMapper mapper)
+        public BlogsController(IBlogService blogService, ICommentService commentService, IMapper mapper)
         {
             _blogService = blogService;
+            _commentService = commentService;
             _mapper = mapper;
         }
 
@@ -143,6 +146,13 @@ namespace MSEkinci.BasicBlog.WebApi.Controllers
         public async Task<IActionResult> GetLastFiveBlogs()
         {
             return Ok(_mapper.Map<BlogListDTO>(await _blogService.GetLastFiveBlogsAsync()));
+        }
+
+        [HttpGet("{id}/[action]")]
+        [ServiceFilter(typeof(ValidId<Blog>))]
+        public async Task<IActionResult> Comments([FromRoute]int id, [FromQuery]int? parentCommentId)
+        {
+            return Ok(_mapper.Map<List<CommentListDTO>>(await _commentService.GetAllWithSubCommentsAsync(id, parentCommentId)));
         }
     }
 }

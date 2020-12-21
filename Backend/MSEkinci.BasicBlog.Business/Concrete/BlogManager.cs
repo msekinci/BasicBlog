@@ -54,9 +54,9 @@ namespace MSEkinci.BasicBlog.Business.Concrete
             return await _blogDAL.GetCategoriesByBlogIdAsync(blogId);
         }
 
-        public async Task<List<Blog>> GetLastFiveBlogAsync()
+        public async Task<List<Blog>> GetLastFiveBlogsAsync()
         {
-            return await _blogDAL.GetLastFiveBlogAsync();
+            return await _blogDAL.GetLastFiveBlogsAsync();
         }
 
         public async Task RemoveFromCategoryAsync(CategoryBlogDTO categoryBlogDTO)
