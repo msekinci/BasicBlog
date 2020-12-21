@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using MSEkinci.BasicBlog.Business.Interfaces;
 using MSEkinci.BasicBlog.DTO.DTOs.BlogDTOs;
 using MSEkinci.BasicBlog.DTO.DTOs.CategoryBlogDTOs;
+using MSEkinci.BasicBlog.DTO.DTOs.CategoryDTOs;
 using MSEkinci.BasicBlog.Entities.Concrete;
 using MSEkinci.BasicBlog.WebApi.CustomFilters;
 using MSEkinci.BasicBlog.WebApi.Models;
@@ -127,7 +128,21 @@ namespace MSEkinci.BasicBlog.WebApi.Controllers
         [ServiceFilter(typeof(ValidId<Category>))]
         public async Task<IActionResult> GetAllByCategoryId(int id)
         {
-            return Ok(await _blogService.GetAllByCategoryId(id));
+            return Ok(_mapper.Map<CategoryListDTO>(await _blogService.GetAllByCategoryId(id)));
+        }
+
+        [HttpGet("{id}/[action]")]
+        [ServiceFilter(typeof(ValidId<Blog>))]
+        public async Task<IActionResult> GetCategories(int id)
+        {
+            return Ok(await _blogService.GetCategoriesByBlogIdAsync(id));
+        }
+
+        [HttpGet("[action]")]
+        [ServiceFilter(typeof(ValidId<Blog>))]
+        public async Task<IActionResult> GetLastFiveBlogs()
+        {
+            return Ok(_mapper.Map<BlogListDTO>(await _blogService.GetLastFiveBlogsAsync()));
         }
     }
 }

@@ -18,7 +18,7 @@ namespace MSEkinci.BasicBlog.DataAccess.Concrete.EntityFrameworkCore.Repositorie
                 {
                     blog = blog,
                     categoryBlog = categoryBlog
-                }).Where(x => x.categoryBlog.CategoryId == categoryId).Select(x => new Blog 
+                }).Where(x => x.categoryBlog.CategoryId == categoryId).Select(x => new Blog
                 {
                     AppUser = x.blog.AppUser,
                     AppUserId = x.blog.AppUserId,
@@ -31,6 +31,27 @@ namespace MSEkinci.BasicBlog.DataAccess.Concrete.EntityFrameworkCore.Repositorie
                     ShortDescription = x.blog.ShortDescription,
                     Title = x.blog.Title
                 }).ToListAsync();
+        }
+
+        public async Task<List<Category>> GetCategoriesByBlogIdAsync(int blogId)
+        {
+            using var context = new BlogContext();
+            return await context.Categories.Join(context.CategoryBlogs, c => c.Id, cb => cb.CategoryId, (category, categoryBlog) =>
+            new
+            {
+                category = category,
+                categoryBlog = categoryBlog
+            }).Where(x => x.categoryBlog.BlogId == blogId).Select(x => new Category
+            {
+                Id = x.category.Id,
+                Name = x.category.Name
+            }).ToListAsync();
+        }
+
+        public async Task<List<Blog>> GetLastFiveBlogsAsync()
+        {
+            using var context = new BlogContext();
+            return await context.Blogs.OrderByDescending(x => x.PostedTime).Take(5).ToListAsync();
         }
     }
 }

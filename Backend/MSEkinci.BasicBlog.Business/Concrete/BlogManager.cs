@@ -49,6 +49,16 @@ namespace MSEkinci.BasicBlog.Business.Concrete
             return await _genericDAL.GetAllAsync(x => x.PostedTime);
         }
 
+        public async Task<List<Category>> GetCategoriesByBlogIdAsync(int blogId)
+        {
+            return await _blogDAL.GetCategoriesByBlogIdAsync(blogId);
+        }
+
+        public async Task<List<Blog>> GetLastFiveBlogAsync()
+        {
+            return await _blogDAL.GetLastFiveBlogAsync();
+        }
+
         public async Task RemoveFromCategoryAsync(CategoryBlogDTO categoryBlogDTO)
         {
             var categoryBlog = await _categoryBlogDAL.GetAsync(x =>
