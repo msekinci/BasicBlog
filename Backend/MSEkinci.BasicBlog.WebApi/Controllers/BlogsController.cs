@@ -154,5 +154,11 @@ namespace MSEkinci.BasicBlog.WebApi.Controllers
         {
             return Ok(_mapper.Map<List<CommentListDTO>>(await _commentService.GetAllWithSubCommentsAsync(id, parentCommentId)));
         }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> Search([FromQuery]string s)
+        {
+            return Ok(_mapper.Map<List<BlogListDTO>>(await _blogService.SearchAsync(s)));
+        }
     }
 }

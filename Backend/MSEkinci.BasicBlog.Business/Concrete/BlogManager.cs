@@ -70,5 +70,10 @@ namespace MSEkinci.BasicBlog.Business.Concrete
                 await _categoryBlogDAL.RemoveAsync(categoryBlog);
             }
         }
+
+        public async Task<List<Blog>> SearchAsync(string searchString)
+        {
+            return await _genericDAL.GetAllAsync(x => x.Title.Contains(searchString) || x.ShortDescription.Contains(searchString) || x.Description.Contains(searchString), x => x.PostedTime);
+        }
     }
 }

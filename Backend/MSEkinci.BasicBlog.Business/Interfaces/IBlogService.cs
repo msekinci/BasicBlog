@@ -14,5 +14,6 @@ namespace MSEkinci.BasicBlog.Business.Interfaces
         Task<List<Blog>> GetAllByCategoryId(int categoryId);
         Task<List<Category>> GetCategoriesByBlogIdAsync(int blogId);
         Task<List<Blog>> GetLastFiveBlogsAsync();
+        Task<List<Blog>> SearchAsync(string searchString);
     }
 }
