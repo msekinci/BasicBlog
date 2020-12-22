@@ -12,5 +12,6 @@ namespace BasicBlogFront.ApiServices.Interfaces
         Task AddAsync(BlogAddModel blogAddModel);
         Task UpdateAsync(BlogUpdateModel blogUpdateModel);
         Task DeleteAsync(int id);
+        Task<List<CommentListModel>> GetCommentsAsync(int blogId, int? parentComment);
     }
 }

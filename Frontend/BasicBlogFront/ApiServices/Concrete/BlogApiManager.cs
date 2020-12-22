@@ -106,5 +106,15 @@ namespace BasicBlogFront.ApiServices.Concrete
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _httpContextAccessor.HttpContext.Session.GetString("token"));
             await _httpClient.DeleteAsync($"{id}");
         }
+
+        public async Task<List<CommentListModel>> GetCommentsAsync(int blogId, int? parentComment)
+        {
+            var response = await _httpClient.GetAsync($"{blogId}/comments?parentCommentId={parentComment}");
+            if (response.IsSuccessStatusCode)
+            {
+                return JsonConvert.DeserializeObject<List<CommentListModel>>(await response.Content.ReadAsStringAsync());
+            }
+            return null;
+        }
     }
 }
