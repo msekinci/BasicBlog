@@ -56,7 +56,8 @@ namespace MSEkinci.BasicBlog.Business.Concrete
 
         public async Task<List<Blog>> GetLastFiveBlogsAsync()
         {
-            return await _blogDAL.GetLastFiveBlogsAsync();
+            var a =  await _blogDAL.GetLastFiveBlogsAsync();
+            return a;
         }
 
         public async Task RemoveFromCategoryAsync(CategoryBlogDTO categoryBlogDTO)

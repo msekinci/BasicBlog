@@ -13,5 +13,11 @@ namespace BasicBlogFront.ApiServices.Interfaces
         Task UpdateAsync(BlogUpdateModel blogUpdateModel);
         Task DeleteAsync(int id);
         Task<List<CommentListModel>> GetCommentsAsync(int blogId, int? parentComment);
+        Task AddToComment(CommentAddModel commentAddModel);
+        Task<List<CategoryListModel>> GetCategoriesAsync(int blogId);
+        Task<List<BlogListModel>> GetLastFiveAsync();
+        Task<List<BlogListModel>> SearchAsync(string s);
+        Task AddToCategoryAsync(CategoryBlogModel model);
+        Task RemoveFromCategoryAsync(CategoryBlogModel model);
     }
 }
