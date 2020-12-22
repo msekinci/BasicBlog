@@ -2,6 +2,7 @@
 using MSEkinci.BasicBlog.DTO.DTOs.AppUserDTOs;
 using MSEkinci.BasicBlog.DTO.DTOs.BlogDTOs;
 using MSEkinci.BasicBlog.DTO.DTOs.CategoryDTOs;
+using MSEkinci.BasicBlog.DTO.DTOs.CommentDTOs;
 using MSEkinci.BasicBlog.Entities.Concrete;
 using MSEkinci.BasicBlog.WebApi.Models;
 
@@ -34,6 +35,12 @@ namespace MSEkinci.BasicBlog.WebApi.Mapping.AutoMapperProfile
 
             CreateMap<AppUserDto, AppUser>();
             CreateMap<AppUser, AppUserDto>();
+
+            CreateMap<Comment, CommentListDTO>();
+            CreateMap<CommentListDTO, Comment>();
+
+            CreateMap<Comment, CommentAddDTO>();
+            CreateMap<CommentAddDTO, Comment>();
         }
     }
 }
