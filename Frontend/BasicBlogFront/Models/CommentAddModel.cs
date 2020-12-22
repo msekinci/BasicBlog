@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace MSEkinci.BasicBlog.DTO.DTOs.CommentDTOs
+namespace BasicBlogFront.Models
 {
-    public class CommentAddDTO
+    public class CommentAddModel
     {
         public string AuthorName { get; set; }
         public string AuthorEmail { get; set; }

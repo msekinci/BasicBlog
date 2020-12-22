@@ -17,27 +17,33 @@
             <th>
                 Posted Time
             </th>
+            <th>
+                Assign Category
+            </th>
             <th>&nbsp;</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ShortDescription)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PostedTime)
-                </td>
-                <td>
-                    <a class='btn btn-outline-primary' asp-action="Update" asp-route-id="@item.Id">Update</a>
-                    <a class='btn btn-outline-danger' asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShortDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PostedTime)
+            </td>
+            <td>
+                <a asp-action="AssignCategory" asp-route-id="@item.Id">Assign Category</a>
+            </td>
+            <td>
+                <a class='btn btn-outline-primary' asp-action="Update" asp-route-id="@item.Id">Update</a>
+                <a class='btn btn-outline-danger' asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

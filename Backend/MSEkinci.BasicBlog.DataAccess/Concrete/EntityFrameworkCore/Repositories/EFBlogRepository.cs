@@ -52,6 +52,7 @@ namespace MSEkinci.BasicBlog.DataAccess.Concrete.EntityFrameworkCore.Repositorie
         {
             using var context = new BlogContext();
             return await context.Blogs.OrderByDescending(x => x.PostedTime).Take(5).ToListAsync();
+            
         }
     }
 }

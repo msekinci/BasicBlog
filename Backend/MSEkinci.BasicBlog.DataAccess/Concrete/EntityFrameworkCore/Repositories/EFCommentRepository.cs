@@ -20,7 +20,7 @@ namespace MSEkinci.BasicBlog.DataAccess.Concrete.EntityFrameworkCore.Repositorie
         private async Task GetComments(int blogId, int? parentCommentId, List<Comment> result)
         {
             using var context = new BlogContext();
-            var comments = await context.Comments.Where(x => x.BlogId == blogId & x.ParentCommentId == parentCommentId).OrderByDescending(x => x.PostedTime).ToListAsync();
+            var comments = await context.Comments.Where(x => x.BlogId == blogId & x.ParentCommentId == parentCommentId).OrderBy(x => x.PostedTime).ToListAsync();
             if (comments.Count > 0)
             {
                 foreach (var comment in comments)

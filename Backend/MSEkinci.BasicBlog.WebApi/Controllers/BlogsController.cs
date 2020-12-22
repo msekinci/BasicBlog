@@ -120,9 +120,9 @@ namespace MSEkinci.BasicBlog.WebApi.Controllers
             return Created("", categoryBlogDTO);
         }
 
-        [HttpPost("[action]")]
+        [HttpDelete("[action]")]
         [Authorize]
-        public async Task<IActionResult> RemoveFromCategory(CategoryBlogDTO categoryBlogDTO)
+        public async Task<IActionResult> RemoveFromCategory([FromQuery]CategoryBlogDTO categoryBlogDTO)
         {
             await _blogService.RemoveFromCategoryAsync(categoryBlogDTO);
             return NoContent();
@@ -143,10 +143,9 @@ namespace MSEkinci.BasicBlog.WebApi.Controllers
         }
 
         [HttpGet("[action]")]
-        [ServiceFilter(typeof(ValidId<Blog>))]
         public async Task<IActionResult> GetLastFiveBlogs()
         {
-            return Ok(_mapper.Map<BlogListDTO>(await _blogService.GetLastFiveBlogsAsync()));
+            return Ok(_mapper.Map<List<BlogListDTO>>(await _blogService.GetLastFiveBlogsAsync()));
         }
 
         [HttpGet("{id}/[action]")]
