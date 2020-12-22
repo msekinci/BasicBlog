@@ -49,6 +49,16 @@ namespace MSEkinci.BasicBlog.Business.Concrete
             return await _genericDAL.GetAllAsync(x => x.PostedTime);
         }
 
+        public async Task<List<Category>> GetCategoriesByBlogIdAsync(int blogId)
+        {
+            return await _blogDAL.GetCategoriesByBlogIdAsync(blogId);
+        }
+
+        public async Task<List<Blog>> GetLastFiveBlogsAsync()
+        {
+            return await _blogDAL.GetLastFiveBlogsAsync();
+        }
+
         public async Task RemoveFromCategoryAsync(CategoryBlogDTO categoryBlogDTO)
         {
             var categoryBlog = await _categoryBlogDAL.GetAsync(x =>
@@ -59,6 +69,11 @@ namespace MSEkinci.BasicBlog.Business.Concrete
             {
                 await _categoryBlogDAL.RemoveAsync(categoryBlog);
             }
+        }
+
+        public async Task<List<Blog>> SearchAsync(string searchString)
+        {
+            return await _genericDAL.GetAllAsync(x => x.Title.Contains(searchString) || x.ShortDescription.Contains(searchString) || x.Description.Contains(searchString), x => x.PostedTime);
         }
     }
 }
