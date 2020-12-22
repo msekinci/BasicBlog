@@ -9,6 +9,7 @@ using MSEkinci.BasicBlog.DTO.DTOs.CommentDTOs;
 using MSEkinci.BasicBlog.Entities.Concrete;
 using MSEkinci.BasicBlog.WebApi.CustomFilters;
 using MSEkinci.BasicBlog.WebApi.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -107,7 +108,7 @@ namespace MSEkinci.BasicBlog.WebApi.Controllers
         [ServiceFilter(typeof(ValidId<Blog>))]
         public async Task<IActionResult> Delete(int id)
         {
-            await _blogService.RemoveAsync(new Blog { Id = id });
+            await _blogService.RemoveAsync(await _blogService.FindByIdAsyc(id));
             return NoContent();
         }
 
@@ -159,6 +160,15 @@ namespace MSEkinci.BasicBlog.WebApi.Controllers
         public async Task<IActionResult> Search([FromQuery]string s)
         {
             return Ok(_mapper.Map<List<BlogListDTO>>(await _blogService.SearchAsync(s)));
+        }
+
+        [HttpPost("[action]")]
+        [ValidModel]
+        public async Task<IActionResult> AddComment(CommentAddDTO commentAddDTO)
+        {
+            commentAddDTO.PostedTime = DateTime.Now;
+            await _commentService.AddAsync(_mapper.Map<Comment>(commentAddDTO));
+            return Created("", commentAddDTO);
         }
     }
 }

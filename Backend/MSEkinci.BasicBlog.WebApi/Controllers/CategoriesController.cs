@@ -64,7 +64,7 @@ namespace MSEkinci.BasicBlog.WebApi.Controllers
         [ServiceFilter(typeof(ValidId<Category>))]
         public async Task<IActionResult> Delete(int id)
         {
-            await _categoryService.RemoveAsync(new Category { Id = id });
+            await _categoryService.RemoveAsync(await _categoryService.FindByIdAsyc(id));
             return NoContent();
         }
 

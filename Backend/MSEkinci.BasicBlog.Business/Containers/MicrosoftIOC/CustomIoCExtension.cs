@@ -10,6 +10,7 @@ using MSEkinci.BasicBlog.DataAccess.Interfaces;
 using MSEkinci.BasicBlog.DTO.DTOs.AppUserDTOs;
 using MSEkinci.BasicBlog.DTO.DTOs.CategoryBlogDTOs;
 using MSEkinci.BasicBlog.DTO.DTOs.CategoryDTOs;
+using MSEkinci.BasicBlog.DTO.DTOs.CommentDTOs;
 
 namespace MSEkinci.BasicBlog.Business.Containers.MicrosoftIOC
 {
@@ -38,6 +39,7 @@ namespace MSEkinci.BasicBlog.Business.Containers.MicrosoftIOC
             services.AddTransient<IValidator<CategoryAddDTO>, CategoryAddValidator>();
             services.AddTransient<IValidator<CategoryBlogDTO>, CategoryBlogValidator>();
             services.AddTransient<IValidator<CategoryUpdateDTO>, CategoryUpdateValidator>();
+            services.AddTransient<IValidator<CommentAddDTO>, CommentAddValidator>();
 
             services.AddScoped<ICustomLogger, NLogAdapter>();
         }

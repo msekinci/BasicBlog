@@ -38,6 +38,9 @@ namespace MSEkinci.BasicBlog.WebApi.Mapping.AutoMapperProfile
 
             CreateMap<Comment, CommentListDTO>();
             CreateMap<CommentListDTO, Comment>();
+
+            CreateMap<Comment, CommentAddDTO>();
+            CreateMap<CommentAddDTO, Comment>();
         }
     }
 }
