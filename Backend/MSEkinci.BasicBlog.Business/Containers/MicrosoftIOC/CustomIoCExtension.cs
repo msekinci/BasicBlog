@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MSEkinci.BasicBlog.Business.Concrete;
 using MSEkinci.BasicBlog.Business.Interfaces;
 using MSEkinci.BasicBlog.Business.Tools.JWTTool;
+using MSEkinci.BasicBlog.Business.Tools.LogTool;
 using MSEkinci.BasicBlog.Business.ValidationRules.FluentValidation;
 using MSEkinci.BasicBlog.DataAccess.Concrete.EntityFrameworkCore.Repositories;
 using MSEkinci.BasicBlog.DataAccess.Interfaces;
@@ -37,6 +38,8 @@ namespace MSEkinci.BasicBlog.Business.Containers.MicrosoftIOC
             services.AddTransient<IValidator<CategoryAddDTO>, CategoryAddValidator>();
             services.AddTransient<IValidator<CategoryBlogDTO>, CategoryBlogValidator>();
             services.AddTransient<IValidator<CategoryUpdateDTO>, CategoryUpdateValidator>();
+
+            services.AddScoped<ICustomLogger, NLogAdapter>();
         }
     }
 }

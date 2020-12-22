@@ -8,11 +8,9 @@ namespace MSEkinci.BasicBlog.Business.Concrete
 {
     public class CommentManager : GenericManager<Comment>, ICommentService
     {
-        private readonly IGenericDAL<Comment> _genericDAL;
         private readonly ICommentDAL _commentDAL;
         public CommentManager(IGenericDAL<Comment> genericDAL, ICommentDAL commentDAL) : base(genericDAL)
         {
-            _genericDAL = genericDAL;
             _commentDAL = commentDAL;
         }
 

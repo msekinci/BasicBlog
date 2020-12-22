@@ -16,8 +16,8 @@ namespace MSEkinci.BasicBlog.DataAccess.Concrete.EntityFrameworkCore.Repositorie
             return await context.Blogs.Join(context.CategoryBlogs, b => b.Id, cb => cb.BlogId,
                 (blog, categoryBlog) => new
                 {
-                    blog = blog,
-                    categoryBlog = categoryBlog
+                    blog,
+                    categoryBlog
                 }).Where(x => x.categoryBlog.CategoryId == categoryId).Select(x => new Blog
                 {
                     AppUser = x.blog.AppUser,
@@ -39,8 +39,8 @@ namespace MSEkinci.BasicBlog.DataAccess.Concrete.EntityFrameworkCore.Repositorie
             return await context.Categories.Join(context.CategoryBlogs, c => c.Id, cb => cb.CategoryId, (category, categoryBlog) =>
             new
             {
-                category = category,
-                categoryBlog = categoryBlog
+                category,
+                categoryBlog
             }).Where(x => x.categoryBlog.BlogId == blogId).Select(x => new Category
             {
                 Id = x.category.Id,
