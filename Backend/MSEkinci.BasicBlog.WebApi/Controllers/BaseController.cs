@@ -11,6 +11,7 @@ namespace MSEkinci.BasicBlog.WebApi.Controllers
     [ApiController]
     public class BaseController : ControllerBase
     {
+        [HttpGet("[action]")]
         public async Task<UploadModel> UploadFileAsync(IFormFile file, string contentType)
         {
             UploadModel uploadModel = new UploadModel();

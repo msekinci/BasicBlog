@@ -31,6 +31,7 @@ namespace MSEkinci.BasicBlog.WebApi.Controllers
             _blogService = blogService;
             _commentService = commentService;
             _facade = facade;
+            _mapper = mapper;
         }
 
         [HttpGet]

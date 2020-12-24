@@ -14,6 +14,7 @@ namespace MSEkinci.BasicBlog.WebApi.Controllers
         }
 
         [Route("/Error")]
+        [HttpGet]
         public IActionResult Error()
         {
             var errorInfo = HttpContext.Features.Get<IExceptionHandlerPathFeature>();
