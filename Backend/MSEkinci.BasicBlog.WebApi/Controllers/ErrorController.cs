@@ -1,23 +1,23 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using MSEkinci.BasicBlog.Business.Tools.LogTool;
+using MSEkinci.BasicBlog.Business.Tools.FacadeTool;
 
 namespace MSEkinci.BasicBlog.WebApi.Controllers
 {
     public class ErrorController : Controller
     {
-        private readonly ICustomLogger _customLogger;
+        private readonly IFacade _facade;
 
-        public ErrorController(ICustomLogger customLogger)
+        public ErrorController(IFacade facade)
         {
-            _customLogger = customLogger;
+            _facade = facade;
         }
 
         [Route("/Error")]
         public IActionResult Error()
         {
             var errorInfo = HttpContext.Features.Get<IExceptionHandlerPathFeature>();
-            _customLogger.LogError($"\nHatanın oluştuğu yer:{errorInfo.Path}\nHata Mesajı: {errorInfo.Error.Message}\nStack Trace:{errorInfo.Error.StackTrace}");
+            _facade.CustomLogger.LogError($"\nHatanın oluştuğu yer:{errorInfo.Path}\nHata Mesajı: {errorInfo.Error.Message}\nStack Trace:{errorInfo.Error.StackTrace}");
             return Problem(detail: "An error occured, we have started work on it!");
         }
     }
