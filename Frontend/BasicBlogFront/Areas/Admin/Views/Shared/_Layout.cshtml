@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var active = TempData["active"].ToString();
+}
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -29,9 +32,10 @@
         <div class="bg-dark border-right" id="sidebar-wrapper">
             <div class="sidebar-heading" style="color:white">Basic Blog </div>
             <div class="list-group list-group-flush">
-                <a asp-action="Index" asp-controller="Home" style="color:white" class="list-group-item list-group-item-action bg-dark active">Home</a>
-                <a asp-action="Index" asp-controller="Blog" style="color:white" class="list-group-item list-group-item-action bg-dark">Blogs</a>
-                <a asp-action="Index" asp-controller="Category" style="color:white" class="list-group-item list-group-item-action bg-dark">Categories</a>
+                <a asp-action="Index" asp-controller="Home" style="color:white" class="list-group-item list-group-item-action bg-dark @(active=="home"?"active":"")">Home</a>
+                <a asp-action="Index" asp-controller="Blog" style="color:white" class="list-group-item list-group-item-action bg-dark @(active=="blog"?"active":"")">Blogs</a>
+                <a asp-action="Index" asp-controller="Category" style="color:white" class="list-group-item list-group-item-action bg-dark @(active=="category"?"active":"")">Categories</a>
+                <a asp-action="SignOut" asp-controller="Home" style="color:white" class="list-group-item list-group-item-action bg-dark">Sign Out</a>
             </div>
         </div>
         <!-- /#sidebar-wrapper -->

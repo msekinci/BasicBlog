@@ -6,6 +6,13 @@
 {
     <categoryfilter category-id="@ViewBag.ActiveCategory"></categoryfilter>
 }
+
+@if (!string.IsNullOrWhiteSpace(ViewBag.SearchString))
+{
+    @await Component.InvokeAsync("Search", new { @s = ViewBag.SearchString })
+}
+
+
 @foreach (var blog in Model)
 {
     <div class="card mb-4">

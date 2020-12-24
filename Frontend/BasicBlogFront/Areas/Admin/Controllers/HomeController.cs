@@ -9,7 +9,13 @@ namespace BasicBlogFront.Areas.Admin.Controllers
         [JwtAuthorize]
         public IActionResult Index()
         {
+            TempData["active"] = "home";
             return View();
+        }
+        public IActionResult SignOut()
+        {
+            HttpContext.Session.Remove("token");
+            return RedirectToAction("Index", "Home", new { area = "" });
         }
     }
 }

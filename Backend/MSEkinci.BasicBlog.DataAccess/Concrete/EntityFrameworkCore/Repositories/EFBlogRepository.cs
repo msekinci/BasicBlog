@@ -53,7 +53,7 @@ namespace MSEkinci.BasicBlog.DataAccess.Concrete.EntityFrameworkCore.Repositorie
 
         public async Task<List<Blog>> GetLastFiveBlogsAsync()
         {
-            return await _context.Blogs.OrderByDescending(x => x.PostedTime).Take(5).ToListAsync();   
+            return await _context.Blogs.OrderByDescending(x => x.PostedTime).Take(5).ToListAsync();
         }
     }
 }
