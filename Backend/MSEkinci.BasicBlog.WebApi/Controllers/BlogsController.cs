@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using MSEkinci.BasicBlog.Business.Interfaces;
 using MSEkinci.BasicBlog.DTO.DTOs.BlogDTOs;
 using MSEkinci.BasicBlog.DTO.DTOs.CategoryBlogDTOs;
@@ -22,18 +23,31 @@ namespace MSEkinci.BasicBlog.WebApi.Controllers
         private readonly IBlogService _blogService;
         private readonly ICommentService _commentService;
         private readonly IMapper _mapper;
+        private readonly IMemoryCache _memoryCache;
 
-        public BlogsController(IBlogService blogService, ICommentService commentService, IMapper mapper)
+        public BlogsController(IBlogService blogService, ICommentService commentService, IMapper mapper, IMemoryCache memoryCache)
         {
             _blogService = blogService;
             _commentService = commentService;
             _mapper = mapper;
+            _memoryCache = memoryCache;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(_mapper.Map<List<BlogListDTO>>(await _blogService.GetAllSortedByPostedTimeAsync()));
+            if (_memoryCache.TryGetValue("blogListAll", out List<BlogListDTO> bl))
+            {
+                return Ok(bl);
+            }
+
+            var blogList = _mapper.Map<List<BlogListDTO>>(await _blogService.GetAllSortedByPostedTimeAsync());
+            _memoryCache.Set("blogListAll", blogList, new MemoryCacheEntryOptions()
+            {
+                AbsoluteExpiration = DateTime.Now.AddDays(1),
+                Priority = CacheItemPriority.Normal
+            });
+            return Ok(blogList);
         }
 
         [HttpGet("{id}")]
