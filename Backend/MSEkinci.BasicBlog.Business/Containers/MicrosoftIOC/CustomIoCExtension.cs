@@ -5,6 +5,7 @@ using MSEkinci.BasicBlog.Business.Interfaces;
 using MSEkinci.BasicBlog.Business.Tools.JWTTool;
 using MSEkinci.BasicBlog.Business.Tools.LogTool;
 using MSEkinci.BasicBlog.Business.ValidationRules.FluentValidation;
+using MSEkinci.BasicBlog.DataAccess.Concrete.EntityFrameworkCore.Context;
 using MSEkinci.BasicBlog.DataAccess.Concrete.EntityFrameworkCore.Repositories;
 using MSEkinci.BasicBlog.DataAccess.Interfaces;
 using MSEkinci.BasicBlog.DTO.DTOs.AppUserDTOs;
@@ -18,6 +19,8 @@ namespace MSEkinci.BasicBlog.Business.Containers.MicrosoftIOC
     {
         public static void AddDependencies(this IServiceCollection services)
         {
+            services.AddDbContext<BlogContext>();
+
             services.AddScoped(typeof(IGenericDAL<>), typeof(EFGenericRepository<>));
             services.AddScoped(typeof(IGenericService<>), typeof(GenericManager<>));
 

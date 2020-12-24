@@ -12,10 +12,14 @@ namespace MSEkinci.BasicBlog.DataAccess.Concrete.EntityFrameworkCore.Repositorie
 {
     public class EFCategoryRepository : EFGenericRepository<Category>, ICategoryDAL
     {
+        private readonly BlogContext _context;
+        public EFCategoryRepository(BlogContext context) : base(context)
+        {
+            _context = context;
+        }
         public async Task<List<Category>> GetAllWithCategoryBlogsAsync()
         {
-            using var context = new BlogContext();
-            return await context.Categories.OrderByDescending(x => x.Id).Include(x => x.CategoryBlogs).ToListAsync();
+            return await _context.Categories.OrderByDescending(x => x.Id).Include(x => x.CategoryBlogs).ToListAsync();
         }
     }
 }

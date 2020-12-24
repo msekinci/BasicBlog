@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using MSEkinci.BasicBlog.DataAccess.Concrete.EntityFrameworkCore.Mapping;
 using MSEkinci.BasicBlog.Entities.Concrete;
 
@@ -6,9 +7,15 @@ namespace MSEkinci.BasicBlog.DataAccess.Concrete.EntityFrameworkCore.Context
 {
     public class BlogContext : DbContext
     {
+        private readonly IConfiguration _configuration;
+
+        public BlogContext(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=Serkan-Ekinci;Database=BasicBlog; Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer(_configuration.GetConnectionString("PROD"));
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

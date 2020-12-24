@@ -10,10 +10,14 @@ namespace MSEkinci.BasicBlog.DataAccess.Concrete.EntityFrameworkCore.Repositorie
 {
     public class EFBlogRepository : EFGenericRepository<Blog>, IBlogDAL
     {
+        private readonly BlogContext _context;
+        public EFBlogRepository(BlogContext context) : base(context)
+        {
+            _context = context;
+        }
         public async Task<List<Blog>> GetAllByCategoryId(int categoryId)
         {
-            using var context = new BlogContext();
-            return await context.Blogs.Join(context.CategoryBlogs, b => b.Id, cb => cb.BlogId,
+            return await _context.Blogs.Join(_context.CategoryBlogs, b => b.Id, cb => cb.BlogId,
                 (blog, categoryBlog) => new
                 {
                     blog,
@@ -35,8 +39,7 @@ namespace MSEkinci.BasicBlog.DataAccess.Concrete.EntityFrameworkCore.Repositorie
 
         public async Task<List<Category>> GetCategoriesByBlogIdAsync(int blogId)
         {
-            using var context = new BlogContext();
-            return await context.Categories.Join(context.CategoryBlogs, c => c.Id, cb => cb.CategoryId, (category, categoryBlog) =>
+            return await _context.Categories.Join(_context.CategoryBlogs, c => c.Id, cb => cb.CategoryId, (category, categoryBlog) =>
             new
             {
                 category,
@@ -50,8 +53,7 @@ namespace MSEkinci.BasicBlog.DataAccess.Concrete.EntityFrameworkCore.Repositorie
 
         public async Task<List<Blog>> GetLastFiveBlogsAsync()
         {
-            using var context = new BlogContext();
-            return await context.Blogs.OrderByDescending(x => x.PostedTime).Take(5).ToListAsync();
+            return await _context.Blogs.OrderByDescending(x => x.PostedTime).Take(5).ToListAsync();   
         }
     }
 }

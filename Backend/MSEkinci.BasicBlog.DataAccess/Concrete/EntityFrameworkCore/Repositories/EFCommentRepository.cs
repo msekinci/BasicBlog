@@ -10,6 +10,11 @@ namespace MSEkinci.BasicBlog.DataAccess.Concrete.EntityFrameworkCore.Repositorie
 {
     public class EFCommentRepository : EFGenericRepository<Comment>, ICommentDAL
     {
+        private readonly BlogContext _context;
+        public EFCommentRepository(BlogContext context) : base(context)
+        {
+            _context = context;
+        }
         public async Task<List<Comment>> GetAllWithSubCommentsAsync(int blogId, int? parentCommentId)
         {
             List<Comment> result = new List<Comment>();
@@ -19,8 +24,7 @@ namespace MSEkinci.BasicBlog.DataAccess.Concrete.EntityFrameworkCore.Repositorie
 
         private async Task GetComments(int blogId, int? parentCommentId, List<Comment> result)
         {
-            using var context = new BlogContext();
-            var comments = await context.Comments.Where(x => x.BlogId == blogId & x.ParentCommentId == parentCommentId).OrderByDescending(x => x.PostedTime).ToListAsync();
+            var comments = await _context.Comments.Where(x => x.BlogId == blogId & x.ParentCommentId == parentCommentId).OrderBy(x => x.PostedTime).ToListAsync();
             if (comments.Count > 0)
             {
                 foreach (var comment in comments)
