@@ -27,6 +27,9 @@ namespace MSEkinci.BasicBlog.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<JwtInfos>(Configuration.GetSection("JwtInfo"));
+            var jwtInfo = Configuration.GetSection("JwtInfo").Get<JwtInfos>();
+
             services.AddAutoMapper(typeof(Startup));
             services.AddDependencies();
             services.AddScoped(typeof(ValidId<>));
@@ -35,9 +38,9 @@ namespace MSEkinci.BasicBlog.WebApi
                 opt.RequireHttpsMetadata = false;
                 opt.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidIssuer = JwtInfos.Issuer,
-                    ValidAudience = JwtInfos.Audience,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtInfos.SecurityKey)),
+                    ValidIssuer = jwtInfo.Issuer,
+                    ValidAudience = jwtInfo.Audience,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtInfo.SecurityKey)),
                     ValidateLifetime = true,
                     ValidateAudience = true,
                     ValidateIssuer = true,
